@@ -10,8 +10,8 @@ struct Pair
     K key;
     V value;
     Pair *next;
-    Pair() : key(K()), value(V()), next(nullptr){};
-    Pair(K key, V value) : key(key), value(value), next(nullptr){};
+    Pair() : key(K()), value(V()), next(nullptr) {}
+    Pair(K key, V value) : key(key), value(value), next(nullptr) {}
 };
 
 template <typename K, typename V>
@@ -24,8 +24,11 @@ private:
 
 public:
 public:
+    Map() : mapSize(0), count(0), pairs(new Pair<K, V>()){};
     Map(int size) : mapSize(size), count(0), pairs(new Pair<K, V>()){};
     Map(int size, Pair<K, V> *pairs) : mapSize(size), count(0), pairs(pairs){};
+
+    void setSize(int size) { this->mapSize = size; }
 
     V get(K key)
     {
@@ -101,7 +104,7 @@ public:
         return false;
     }
 
-    Pair<K, V>* find(K key)
+    Pair<K, V> *find(K key)
     {
         Pair<K, V> *current = this->pairs;
         Pair<K, V> *previous = nullptr;
