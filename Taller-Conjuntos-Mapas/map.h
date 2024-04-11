@@ -28,6 +28,7 @@ public:
     Map(int size) : mapSize(size), count(0), pairs(new Pair<K, V>()){};
     Map(int size, Pair<K, V> *pairs) : mapSize(size), count(0), pairs(pairs){};
 
+    int size() { return this->count; }
     void setSize(int size) { this->mapSize = size; }
 
     V get(K key)
@@ -177,31 +178,71 @@ public:
 
     bool isEmpty() { return this->count == 0; }
 
-    int size() { return this->count; }
-
     void clear()
     {
         this->count = 0;
         this->pairs = new Pair<K, V>();
     }
+
+    Map<K, V> intersection(Map<K, V> &map)
+    {
+        Map<K, V> intersectionMap(this->size() + map.size());
+        vector<Pair<K, V>> items = this->items();
+        for (Pair<K, V> &pair : items)
+        {
+            if (map.contains(pair.key))
+            {
+                intersectionMap.insert(pair.key, pair.value);
+            }
+        }
+        return intersectionMap;
+    }
+
+    Map<K, V> diff(Map<K, V> &map)
+    {
+        Map<K, V> diffMap(this->size() + map.size());
+        vector<Pair<K, V>> items = this->items();
+        for (Pair<K, V> &pair : items)
+        {
+            if (!map.contains(pair.key))
+            {
+                diffMap.insert(pair.key, pair.value);
+            }
+        }
+        return diffMap;
+    }
+
+    Map<K, V> merge(Map<K, V> &map)
+    {
+        Map<K, V> mergedMap(this->size() + map.size());
+        vector<Pair<K, V>> items = this->items();
+        for (Pair<K, V> &pair : items)
+        {
+            mergedMap.insert(pair.key, pair.value);
+        }
+        items = map.items();
+        for (Pair<K, V> &pair : items)
+        {
+            mergedMap.insert(pair.key, pair.value);
+        }
+        return mergedMap;
+    }
+
+    bool operator==(Map<K, V> &map)
+    {
+        if (this->size() != map.size())
+        {
+            return false;
+        }
+
+        vector<Pair<K, V>> items = this->items();
+        for (Pair<K, V> &pair : items)
+        {
+            if (!map.contains(pair.key) || map.get(pair.key) != pair.value)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 };
-
-template <typename K, typename V>
-Map<K, V> merge(Map<K, V> &map1, Map<K, V> &map2)
-{
-    Map<K, V> mergedMap(map1.size() + map2.size());
-    vector<Pair<K, V>> items1 = map1.items();
-    vector<Pair<K, V>> items2 = map2.items();
-
-    for (Pair<K, V> &pair : items1)
-    {
-        mergedMap.insert(pair.key, pair.value);
-    }
-
-    for (Pair<K, V> &pair : items2)
-    {
-        mergedMap.insert(pair.key, pair.value);
-    }
-
-    return mergedMap;
-}
