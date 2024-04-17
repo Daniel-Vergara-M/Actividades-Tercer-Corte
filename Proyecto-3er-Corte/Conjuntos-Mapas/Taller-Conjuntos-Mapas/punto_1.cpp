@@ -52,16 +52,16 @@ int main()
     string department;
     string climate;
     Map<string, CapitalAndClimate> map(10);
-    map.insert("Amazonas", {"Leticia", "Tropical"});
-    map.insert("Antioquia", {"Medellín", "Temperate"});
-    map.insert("Arauca", {"Arauca", "Tropical"});
-    map.insert("Atlántico", {"Barranquilla", "Tropical"});
-    map.insert("Bolívar", {"Cartagena", "Tropical"});
-    map.insert("Boyacá", {"Tunja", "Temperate"});
-    map.insert("Caldas", {"Manizales", "Temperate"});
-    map.insert("Caquetá", {"Florencia", "Tropical"});
-    map.insert("Casanare", {"Yopal", "Tropical"});
-    map.insert("Cauca", {"Popayán", "Temperate"});
+    map["Amazonas"] = {"Leticia", "Tropical"};
+    map["Antioquia"] = {"Medellín", "Temperate"};
+    map["Arauca"] = {"Arauca", "Tropical"};
+    map["Atlántico"] = {"Barranquilla", "Tropical"};
+    map["Bolívar"] = {"Cartagena", "Tropical"};
+    map["Boyacá"] = {"Tunja", "Temperate"};
+    map["Caldas"] = {"Manizales", "Temperate"};
+    map["Caquetá"] = {"Florencia", "Tropical"};
+    map["Casanare"] = {"Yopal", "Tropical"};
+    map["Cauca"] = {"Popayán", "Temperate"};
 
     vector<string> departamentos = map.keys();
     vector<CapitalAndClimate> climas = map.values();
