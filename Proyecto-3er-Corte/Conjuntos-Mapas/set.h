@@ -414,6 +414,28 @@ public:
     Set<T> intersection(const Set<T> &other) {
         return *this * other;
     }
+
+    bool operator==(Set<T> &other) {
+        if (size != other.size)
+        {
+            return false;
+        }
+
+        for (T& value : data) {
+            if (!other.contains(value)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    bool operator!=(Set<T> &other) {
+        return !(*this == other);
+    }
+
+    void operator delete[](void *ptr) {
+        delete[] ptr;
+    }
     
     bool empty() {
         return size == 0;
