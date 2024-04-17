@@ -365,4 +365,57 @@ public:
     {
         return !(*this == other);
     }
+
+    Set<T> operator+(const Set<T> &other) {
+        Set<T> result(capacity + other.capacity);
+        for (int i = 0; i < size; i++)
+        {
+            result.insert(data[i]);
+        }
+        for (int i = 0; i < other.size; i++)
+        {
+            result.insert(other.data[i]);
+        }
+        return result;
+    }
+
+    Set<T> setUnion(const Set<T> &other) {
+        return *this + other;
+    }
+
+    Set<T> operator-(const Set<T> &other) {
+        Set<T> result(capacity);
+        for (int i = 0; i < size; i++)
+        {
+            if (!other.contains(data[i]))
+            {
+                result.insert(data[i]);
+            }
+        }
+        return result;
+    }
+
+    Set<T> difference(const Set<T> &other) {
+        return *this - other;
+    }
+
+    Set<T> operator*(const Set<T> &other) {
+        Set<T> result(capacity);
+        for (int i = 0; i < size; i++)
+        {
+            if (other.contains(data[i]))
+            {
+                result.insert(data[i]);
+            }
+        }
+        return result;
+    }
+
+    Set<T> intersection(const Set<T> &other) {
+        return *this * other;
+    }
+    
+    bool empty() {
+        return size == 0;
+    }
 };
