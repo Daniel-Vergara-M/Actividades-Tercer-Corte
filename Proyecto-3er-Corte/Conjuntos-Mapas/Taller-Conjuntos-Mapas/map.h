@@ -5,7 +5,7 @@
 using namespace std;
 
 template <class Point>
-string to_string(const Point& point)
+string to_string(const Point &point)
 {
     return "(" + to_string(point.x()) + ", " + to_string(point.y()) + ")";
 }
@@ -402,11 +402,16 @@ public:
         return this->get(key);
     }
 
-    void operator[]= (Pair<K, V> pair)
+    void operator[] =(Pair<K, V> pair)
     {
         this->insert(pair.key, pair.value);
     }
-    
+
+    void operator[] =(K key, V value)
+    {
+        this->insert(key, value)
+    }
+
     bool operator==(Map<K, V> &map)
     {
         if (this->size() != map.size())
